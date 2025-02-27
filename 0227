@@ -1,0 +1,430 @@
+#include <iostream>
+#include <random>  // 更現代的隨機數產生方式
+using namespace std;
+int social=0,ambition=0,strategy=0,emperor=0,interaction=0,safety=0;
+bool E=false;
+void scene (int run)
+{
+	switch(run) 
+	{
+		case 0:
+        cout << "在這個充滿陰謀與權謀的古代宮廷中，你是一位想藉由進宮而達成夢想的新人。隨著皇帝登基，宮中的各路勢力也開始蠢蠢欲動。每一位宮女、太監、甚至嬪妃，無論是身處高位還是低位，都在為權力而爾虞我詐。在這個權力的漩渦中，是依附於某個勢力，還是挑戰權威，爭取一席之地？\n";
+        cout << "在古代宮廷中，你需要運用智慧與勇氣，在宮廷中步步為營，結交盟友，並小心應對那些在背後操控一切的權力人物。每一個選擇，無論是愛恨情仇，還是忠誠背叛，都將決定你在這個華麗但危險的宮廷中的命運。\n";
+        cout << "請注意，在這個世界任何問題都將劇烈影響你的未來，再送出回答之前請仔細檢查是否有1.多餘的符號(例如: ，。 .) 2.超過選項之數字(例如選項為1-4，卻回答6)，若不幸發生，可能會有意想不到且危險的後果在等待著你...(例如: ，。 .)，若不幸發生，可能會有意想不到且危險的後果在等待著你...\n";
+    case 1:
+        
+    case 2: 
+        cout << "入宮後第一件事是是？\n";
+        cout << "對於初入宮廷的你，這是一個陌生且充滿挑戰的環境。對宮中的禮儀、規矩和權力結構完全陌生。每個動作、言談舉止，都有可能影響你的未來。在做出每個決定之前，請仔細想想如何達成美滿的目標。\n";
+    		cout << "1.低調行事，避免捲入各黨鬥爭。(但會大幅影響你受寵的機會)\n";
+    		cout << "2.積極巴結宮中權貴，找對高位者，你的得勢會極快。(在這當中可能會大量樹敵)\n";
+    		cout << "3.依靠太監、宮女情報網，消息靈通，遇到事情時能預先做打算，以防遭人陷害。(但地位難以提升，被揭發時無人能當靠山)\n";
+    		cout << "4.靠自身才藝吸引皇上，和他搞好關係直接影響到你的地位和未來發展。有提升成為寵妃的機率及升位快速。(得寵有風險，競爭激烈)\n"; 
+    		break;
+		case 3: 
+    		cout << "與誰搞好關係？\n";
+        cout << "在宮廷中，建立良好的關係對於生存和發展至關重要。\n";
+    		cout << "1.太監、宮女: 通常有著深入的內部關係和情報來源。\n";
+    		cout << "2.權臣: 為你提供更多的機會，並且讓你在權力鬥爭中站穩腳步。這些人物的支持往往能為你帶來穩固的後盾。\n";
+    		cout << "3.嬪妃: 她們的權力與影響力不亞於君王。與她們建立良好關係，對於保護自己的安全、爭取機會都至關重要。\n";
+    		cout << "4.皇帝: 宮中最大的權力者，將會直接影響你未來的地位及處境。\n"; 
+    		break;
+		case 4: 
+    		cout << "一位嬪妃拉攏你站隊，你選擇？\n";
+        cout << "一位嬪妃拉攏你站隊，這無疑是一個極具風險但也充滿潛力的機會。在這樣的情況下，你需要仔細考慮來決定是否加入她的陣營。\n";
+    		cout << "1.加入\n";
+    		cout << "2.拒絕\n";
+    		cout << "3.觀望\n";
+    		cout << "4.出賣她\n"; 
+    		break;
+		case 5: 
+    		cout << "皇帝突然對你有興趣，你的態度？\n";
+        cout << "這天你在御花園(地圖，從宮殿中走到御花園)悠閒地散步，也許是欣賞花園中的美景，也或許是排解心中的鬱悶。皇帝那天其實也在花園，但距離隔著太遠你並未發現，皇帝從遠處看到身穿一襲紫色紗裙的你，竟對你產生興趣來。而你的態度將影響皇上對你的態度。\n";
+    		cout << "1.主動接近\n";
+    		cout << "2.若即若離\n";
+    		cout << "3.拒絕，保持距離，做自己\n";
+    		cout << "4.試圖謀求更高地位\n"; 
+    		break;
+		case 6: 
+    		cout << "敵人開始針對你，你如何反擊？\n";
+    		cout << "1.忍耐\n";
+    		cout << "2.主動出擊\n";
+    		cout << "3.聯合其他嬪妃\n";
+    		cout << "4.討好皇后\n"; 
+    		break;
+		case 7: 
+    		cout << "皇帝賜給你一個機會(晉升/封賞)，但有代價，你接受嗎?\n";
+    		cout << "1.接受\n";
+    		cout << "2.拒絕\n";
+    		cout << "3.謀求更大利益\n"; 
+    		break;
+		case 8: 
+    		cout << "皇帝身體不適，你有機會影響皇儲，你決定?\n";
+    		cout << "1.支持原太子\n";
+    		cout << "2.支持自己兒子\n";
+    		cout << "3.聯合當權宰相\n";
+    		cout << "4.靜觀其變\n"; 
+    		break;
+		case 9: 
+    		cout << "你面臨生死決策，是否願意放棄權力?\n";
+    		cout << "1.是，在宮廷內找生路\n";
+    		cout << "2.是，嘗試逃離\n";
+    		cout << "3.否，抗爭到底\n"; 
+    		break;
+		default: cout << "來人，拖出去，斬了!";
+	}
+
+}
+void option_A (int run)
+{
+	 switch(run) 
+	{
+		case 2: 
+			strategy+=1;
+			social-=1;
+			safety+=1; 
+			break;
+		case 3: 
+			strategy+=1;
+			social+=1;
+			safety-=1; 
+			break;
+		case 4: 
+			interaction+=1;
+			social+=1;
+			safety-=1; 
+			break;
+		case 5: 
+			emperor+=2;
+			ambition+=1;
+			safety-=1;
+			break;
+		case 6: 
+			social-=1;
+			ambition-=1;
+			strategy+=1;
+			safety+=1;
+			break;
+		case 7: 
+			emperor+=2;
+			ambition+=2;
+			strategy-=1;
+			safety-=2; 
+			break;
+		case 8: 
+			if (social>=4&&ambition>=4&&strategy>=4)
+			{
+				cout << "皇后";
+				E=true;
+			}
+			else if (social>=4&&ambition>=4&&strategy<4)
+			{
+				cout << "寵妃";
+				E=true;
+			}
+			else 
+			{
+			 	cout << "平平無奇";
+			 	E=true;
+			} 
+			break;
+		case 9: 
+			cout << "奴婢"; 
+			break;
+		default: cout << "來人，拖出去，斬了!";
+	}
+}
+void option_B (int run)
+{
+	 switch(run) 
+	{
+		case 2: 
+			ambition+=1;
+			interaction+=1;
+			social+=1;
+			safety-=2; 
+			break;
+		case 3: 
+			ambition+=1;
+			interaction+=1;
+			safety-=1; 
+			break;
+		case 4: 
+			interaction-=1;
+			social-=1;
+			safety+=1; 
+			emperor+=1;
+			break;
+		case 5: 
+			emperor+=1;
+			strategy+=1;
+			break;
+		case 6: 
+			social+=1;
+			ambition+=1;
+			interaction-=1;
+			safety-=1;
+			break;
+		case 7: 
+			emperor-=1;
+			ambition-=2;
+			strategy+=1;
+			safety+=1; 
+			break;
+		case 8: 
+		{
+			random_device rd;  // 真正的隨機數種子
+    		mt19937 gen(rd()); // 產生隨機數引擎
+    		uniform_int_distribution<int> dist(1, 100);  // 產生 1~100 之間的數字
+
+    		int chance = dist(gen);  // 抽取隨機數
+    		if (chance <= 30)  // 30% 機率成功 
+			{ 
+    			cout << "皇后";
+    			E=true;
+    		} 
+			else 
+			{
+        		cout << "你失敗了...\n";
+    		}
+    		break;
+		}
+		case 9:
+			if (safety>=4)
+				cout << "離宮，平靜的生活";
+			else
+				cout << "宮鬥失敗死亡";
+			break;
+		default: cout << "來人，拖出去，斬了!";
+	}
+}
+void option_C (int run)
+{
+	 switch(run) 
+	{
+		case 2: 
+			strategy+=1;
+			social+=1;
+			break;
+		case 3: 
+			social+=1;
+			strategy+=1;
+			break;
+		case 4: 
+			safety+=2; 
+			break;
+		case 5: 
+			ambition-=1;
+			emperor-=2;
+			safety+=2;
+			break;
+		case 6: 
+			social+=1;
+			strategy+=1;
+			break;
+		case 7: 
+		{
+			random_device rd;  // 真正的隨機數種子
+    		mt19937 gen(rd()); // 產生隨機數引擎
+    		uniform_int_distribution<int> dist(1, 100);  // 產生 1~100 之間的數字
+
+    		int chance = dist(gen);  // 抽取隨機數
+    		if (chance <= 33)  // 33% 機率成功 
+			{ 
+    			social+=1;
+    			ambition+=2;
+    			strategy+=2;
+    			emperor+=1;
+    			interaction+=1;
+    			safety+=2;
+    		} 
+			else 
+			{
+        		social-=1;
+        		interaction-=2;
+        		safety-=1;
+    		} 
+			break;
+		}
+		case 8: 
+    		if (interaction>=5)
+			{
+				cout << "皇后";
+				E=true;
+			}
+			else 
+			{
+		 		cout << "被打入冷宮";
+	 			E=true;
+			} 
+			break;
+		case 9:
+		{
+			random_device rd;  // 真正的隨機數種子
+    		mt19937 gen(rd()); // 產生隨機數引擎
+    		uniform_int_distribution<int> dist(1, 100);  // 產生 1~100 之間的數字
+
+    		int chance = dist(gen);  // 抽取隨機數
+    		if (chance<=40)
+    		{	
+    			if (emperor>=4)
+				{
+					cout << "寵妃";
+					E=true;
+				}
+				else 
+				{
+			 		cout << "被打入冷宮";
+			 		E=true;
+				} 
+			}
+			else
+			{
+				cout << "宮鬥失敗死亡";
+				E=true; 
+			}
+			break;
+		}
+		default: cout << "來人，拖出去，斬了!";
+	}
+}
+void option_D (int run)
+{
+	 switch(run) 
+	{
+		case 2: 
+			emperor+=1;
+			safety-=1; 
+			break;
+		case 3: 
+			emperor+=1;
+			safety-=1;  
+			break;
+		case 4: 
+    	{
+			random_device rd;  // 真正的隨機數種子
+    		mt19937 gen(rd()); // 產生隨機數引擎
+    		uniform_int_distribution<int> dist(1, 100);  // 產生 1~100 之間的數字
+
+    		int chance = dist(gen);  // 抽取隨機數
+    		if (chance<=50)
+    		{
+    			emperor+=2;
+    			ambition+=2;
+    			strategy+=2;
+			}
+			else
+			{
+				interaction-=2;
+				social-=2;
+				safety-=1;
+			}
+			break;
+    	}
+		case 5: 
+		{
+			if (emperor>=2)
+			{
+				emperor+=1;
+				ambition+=2;
+			}
+			else
+			{
+				random_device rd;
+				mt19937 gen(rd());
+				uniform_int_distribution<int> dist(1,100);
+			
+				int chance = dist(gen);
+				if (chance<=33)
+				{
+					emperor+=1;
+					ambition+=2;
+					strategy+=1;
+				}
+				else
+				{
+					safety-=2;
+					emperor-=1;
+				}
+			}
+			break;
+		}
+		case 6: 
+	    {
+			random_device rd;
+			mt19937 gen(rd());
+			uniform_int_distribution<int> dist(1,100);
+			
+			int chance = dist(gen);
+			if (chance<=40)
+			{
+				safety+=1;
+				ambition+=1;
+				strategy+=1;
+				social+=1;
+			}
+			else
+			{
+				interaction-=1;
+				safety-=1;
+				social-=1;
+			}
+			break;
+	    }
+		case 8: 
+	    {
+			random_device rd;
+			mt19937 gen(rd());
+			uniform_int_distribution<int> dist(1,100);
+			
+			int chance = dist(gen);
+			if (chance<=50)
+			{
+				if (strategy>=4)
+				{
+				 	cout << "皇后";
+				 	E=true;
+				} 
+				else
+				{
+				 	cout << "寵妃";
+				 	E=true;
+				} 
+			}
+			else
+			{
+				cout << "平平無奇";
+				E=true;
+			}
+			break;
+	    }
+		default: cout << "來人，拖出去，斬了!";
+	}
+}
+
+int main() {
+    int n, run = 2;
+
+    while (E==false) {
+        scene(run);
+        cin >> n;
+
+        if (n == 1)
+            option_A(run);
+        else if (n == 2)
+            option_B(run);
+        else if (n == 3)
+            option_C(run);
+        else if (n == 4)
+            option_D(run);
+        else {
+              cout << "來人，拖出去，斬了!\n";
+              cout << "...再給你一次機會，請謹慎回答...\n";
+              continue;
+        }
+        
+        run++;
+    }
+
+    return 0;
+}
