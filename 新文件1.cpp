@@ -32,7 +32,9 @@ void showMap() {
     #endif
 
     cout << "這天，也許是為了欣賞花園中的美景，又或是為了排解心中的鬱悶，你來到了御花園。\n";
-    cout << "你在御花園(地圖，從宮殿中走到御花園)悠閒地散步\n";
+    cout << "你在御花園悠閒地散步\n";
+    cout << "*請利用鍵盤上W/w、S/s、A/a、D/d進行上下左右移動，從宮殿中走到御花園\n";
+
     // 顯示地圖元素的標示文字
     cout << "=== 地圖元素說明 ===" << endl;
     cout << "#  - 道路 (Road)" << endl;
@@ -42,7 +44,6 @@ void showMap() {
     cout << "\033[38;5;11mH  - 御花園 (Herb Garden)\033[0m" << endl; // 御花園為黃色
     cout << "\033[38;5;9mP  - 玩家 (Player)\033[0m" << endl; // 玩家為紅色
     cout << "=====================" << endl;
-    cout << "*請利用鍵盤上W/w、S/s、A/a、D/d進行上下左右移動\n";
 
     // 顯示地圖
     for (int y = 0; y < MAP_HEIGHT; ++y) {
@@ -84,7 +85,7 @@ bool checkCollisionWithObject(int newX, int newY) {
         return true;
     } else if (map[newY][newX] == 'H') {
         cout << "終於到御花園了!" << endl;
-        usleep(500000);
+        usleep(2000000);
         F=true;
         return false;
     }
@@ -100,17 +101,23 @@ void handleMovement(char move) {
         if (playerY > 0) newY--;
         else { cout << "牆壁撞的我好疼阿" << endl; usleep(500000); return; }
     }
-    if (move == 's') {
+    else if (move == 's') {
         if (playerY < MAP_HEIGHT - 1) newY++;
         else { cout << "牆壁撞的我好疼阿" << endl; usleep(500000); return; }
     }
-    if (move == 'a') {
+    else if (move == 'a') {
         if (playerX > 0) newX--;
         else { cout << "牆壁撞的我好疼阿" << endl; usleep(500000); return; }
     }
-    if (move == 'd') {
+    else if (move == 'd') {
         if (playerX < MAP_WIDTH - 1) newX++;
         else { cout << "牆壁撞的我好疼阿" << endl; usleep(500000); return; }
+    }
+    else
+    {
+        cout << "在宮內請好好走路!" << endl;
+        usleep(600000);
+        return;
     }
 
     if (!checkCollisionWithObject(newX, newY)) {
@@ -149,19 +156,19 @@ void scene (int run)
         	cout << " " << endl;
         	cout << "對於初入宮廷的你，這是一個陌生且充滿挑戰的環境。對宮中的禮儀、規矩和權力結構完全陌生。\n";
         	cout << "每個動作、言談舉止，都有可能影響你的未來。在做出每個決定之前，請仔細想想如何達成美滿的目標。\n";
-    		cout << "1.低調行事，避免捲入各黨鬥爭。(但會大幅影響你受寵的機會)\n";
-    		cout << "2.積極巴結宮中權貴，找對高位者，你的得勢會極快。(在這當中可能會大量樹敵)\n";
-    		cout << "3.依靠太監、宮女情報網，消息靈通，遇到事情時能預先做打算，以防遭人陷害。(但地位難以提升，被揭發時無人能當靠山)\n";
-    		cout << "4.靠自身才藝吸引皇上，和他搞好關係直接影響到你的地位和未來發展。有提升成為寵妃的機率及升位快速。(得寵有風險，競爭激烈)\n";
+    		cout << "1.低調行事，避免捲入各黨鬥爭\n";
+    		cout << "2.積極巴結宮中權貴\n";
+    		cout << "3.依靠太監、宮女情報網\n";
+    		cout << "4.靠自身才藝吸引皇上\n";
     		break;
 		case 3:
     		cout << " " << endl;
     		cout << "與誰搞好關係？\n";
         	cout << "在宮廷中，建立良好的關係對於生存和發展至關重要。\n";
-    		cout << "1.太監、宮女: 通常有著深入的內部關係和情報來源。\n";
-    		cout << "2.權臣: 為你提供更多的機會，並且讓你在權力鬥爭中站穩腳步。這些人物的支持往往能為你帶來穩固的後盾。\n";
-    		cout << "3.嬪妃: 她們的權力與影響力不亞於君王。與她們建立良好關係，對於保護自己的安全、爭取機會都至關重要。\n";
-    		cout << "4.皇帝: 宮中最大的權力者，將會直接影響你未來的地位及處境。\n";
+    		cout << "1.太監、宮女\n";
+    		cout << "2.權臣\n";
+    		cout << "3.嬪妃\n";
+    		cout << "4.皇帝\n";
     		break;
 		case 4:
         	cout << " " << endl;
@@ -262,11 +269,13 @@ void option_A (int run)
       		strategy+=1;
       		break;
 		case 2:
+			cout << "但這會大幅影響你受寵的機會\n";
 			strategy+=1;
 			social-=1;
 			safety+=1;
 			break;
 		case 3:
+			cout << "不錯的選擇!太監和宮女通常有著深入的內部關係和情報來源。\n";
 			strategy+=1;
 			social+=1;
 			safety-=1;
@@ -345,12 +354,14 @@ void option_B (int run)
       		social+=1;
       		break;
 		case 2:
+		    cout << "找對高位者，你的得勢會極快!在這當中可能會大量樹敵\n";
 			ambition+=1;
 			interaction+=1;
 			social+=1;
 			safety-=2;
 			break;
 		case 3:
+			cout << "權臣為你提供更多的機會，並且讓你在權力鬥爭中站穩腳步。這些人物的支持往往能為你帶來穩固的後盾。\n";
 			ambition+=1;
 			interaction+=1;
 			safety-=1;
@@ -434,10 +445,13 @@ void option_C (int run)
       		ambition+=1;
       		break;
 		case 2:
+		    cout << "消息靈通，遇到事情時能預先做打算，以防遭人陷害\n";
+		    cout << "但地位難以提升，被揭發時無人能當靠山\n";
 			strategy+=1;
 			social+=1;
 			break;
 		case 3:
+		    cout << "嬪妃們的權力與影響力不亞於君王。與她們建立良好關係，對於保護自己的安全、爭取機會都至關重要\n";
 			social+=1;
 			strategy+=1;
 			break;
@@ -545,10 +559,13 @@ void option_D (int run)
 		case 0:
 			break;
 		case 2:
+		    cout << "和他搞好關係直接影響到你的地位和未來發展。有提升成為寵妃的機率及升位快速\n";
+		    cout << "但得寵有風險，且競爭激烈\n";
 			emperor+=1;
 			safety-=1;
 			break;
 		case 3:
+			cout << "他宮中最大的權力者，將會直接影響你未來的地位及處境\n";
 			emperor+=1;
 			safety-=1;
 			break;
@@ -679,6 +696,7 @@ int main() {
 
 	while (E==false)
 	{
+        usleep(1000000);
         if (run==5)
         {
             while (true)
