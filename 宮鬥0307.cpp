@@ -98,44 +98,6 @@ bool checkCollisionWithObject(int newX, int newY) {
 }
 /*
 * 以巢狀迴圈判斷與記錄使用者上/下/左/右，並有地圖邊界判斷，若撞牆會輸出提示文字並停留在原地。
-* 參數:char move - 使用者                   cout << "\033[38;5;11m" << "H  " << "\033[0m";  // 御花園顯示黃色
-                } else if (map[y][x] == '#') {
-                    cout << "\033[38;5;7m" << "#  " << "\033[0m";  // 道路顯示灰色
-                }
-            }
-        }
-        cout << endl;
-    }
-}
-/*
-* 以巢狀迴圈判斷地點，並輸出相應文字。
-* 參數:
-* int newX - 地圖 x 座標
-* int newY - 地圖 y 座標
-*/
-bool checkCollisionWithObject(int newX, int newY) {
-    if (map[newY][newX] == 'S') {
-        cout << "這石頭也太硬了" << endl;
-        usleep(500000); // 暫停 0.5 秒以顯示訊息
-        return true;
-    } else if (map[newY][newX] == 'C') {
-        cout << "這花兒終於開了，這可真美阿" << endl;
-        usleep(500000);
-        return true;
-    } else if (map[newY][newX] == 'T') {
-        cout << "這草多久沒除啦，都長我的腳踝了，等會兒叫小炭子來處理" << endl;
-        usleep(500000);
-        return true;
-    } else if (map[newY][newX] == 'H') {
-        cout << "終於到御花園了!" << endl;
-        usleep(2000000);
-        F=true;
-        return false;
-    }
-    return false;
-}
-/*
-* 以巢狀迴圈判斷與記錄使用者上/下/左/右，並有地圖邊界判斷，若撞牆會輸出提示文字並停留在原地。
 * 參數:char move - 使用者選擇的移動方向
 */
 void handleMovement(char move) {
