@@ -4,13 +4,13 @@
 #include <unistd.h>  // 用於 usleep（Linux/macOS 下）或者 Windows 用 Sleep()
 #include <cctype>  // 用於 tolower 函數
 using namespace std;
-int social=0,ambition=0,strategy=0,emperor=0,interaction=0,safety=0; //將能力值設定在全域變數，以供自訂函式使用
+int social=0,ambition=0,strategy=0,emperor=0,interaction=0,safety=0; //將能力值設定在全域變數，以供自訂函式使用，這些數值將影響遊戲結局
 bool E=false,F=false; //結束條件判定用
 const int MAP_WIDTH = 10;
 const int MAP_HEIGHT = 10;
 int playerX = 1, playerY = 0;  // 玩家初始位置
-char prevTile = '#';  // 記錄玩家上一步所在的地圖元素
-// 地圖元素，將 'R' 改為 '#'，'Stone' 改為 'S'，'Cherry' 改為 'C'，'Grass' 改為 'T'
+char prevTile = '#';  // 記錄玩家上一個位置的地圖元素，以便恢復地圖
+// 遊戲地圖，使用不同符號代表不同地形
 char map[MAP_HEIGHT][MAP_WIDTH] = {
     {'#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
     {'#', '#', '#', '#', '#', '#', 'C', '#', 'S', '#'},
@@ -310,9 +310,11 @@ void incident (int run)
     }
 }
 /*
-* 將所有的選項1 獨立成一個自訂函式，內部以switch 函式管理每一回合的敘述。
-* 參數:int run - 傳入回合數，讓switch 函式輸出相應場景
-*/
+ * 將所有的選項 1 獨立成一個函式，內部使用 switch 控制每回合的敘述。
+ * 
+ * 參數：
+ * - int run - 當前回合數，根據不同回合輸出對應的場景描述並影響角色數值。
+ */
 void option_A (int run)
 {
 	 switch(run)
@@ -400,9 +402,14 @@ void option_A (int run)
 	}
 }
 /*
-* 將所有的選項2 獨立成一個自訂函式，內部以switch 函式管理每一回合的敘述。
-* 參數:int run - 傳入回合數，讓switch 函式輸出相應場景
-*/
+ * 將所有的選項 2 獨立成一個函式，內部使用 switch 控制每回合的敘述。
+ * 
+ * 參數：
+ * - int run - 當前回合數，根據不同回合輸出對應的場景描述並影響角色數值。
+ *
+*  特殊機制：
+ * - 某些回合（如 8）會根據隨機機率決定不同結果。
+ */
 void option_B (int run)
 {
 	 switch(run)
@@ -410,11 +417,11 @@ void option_B (int run)
 		case 0:
 			break;
 		case 1:
-      		cout << "你是西京洛陽皇親國戚之女，家族背景顯赫\n";
-      		social+=1;
-      		break;
+      			cout << "你是西京洛陽皇親國戚之女，家族背景顯赫\n";
+      			social+=1;
+      			break;
 		case 2:
-		    cout << "找對高位者，你的得勢會極快!在這當中可能會大量樹敵\n";
+		    	cout << "找對高位者，你的得勢會極快!在這當中可能會大量樹敵\n";
 			ambition+=1;
 			interaction+=1;
 			social+=1;
@@ -460,22 +467,23 @@ void option_B (int run)
 		case 8:
 		{
 			random_device rd;  // 真正的隨機數種子
-    		mt19937 gen(rd()); // 產生隨機數引擎
-    		uniform_int_distribution<int> dist(1, 100);  // 產生 1~100 之間的數字
+    			mt19937 gen(rd()); // 產生隨機數引擎
+    			uniform_int_distribution<int> dist(1, 100);  // 產生 1~100 之間的數字
 
-    		int chance = dist(gen);  // 抽取隨機數
-    		if (chance <= 33){
+    			int chance = dist(gen);  // 抽取隨機數
+    			if (chance <= 33){
     			cout << "你站在王宮金碧輝煌的大廳中，血液彷彿沸騰著在你的身體裡流動。你，終於成為了皇后。\n";
-				cout << "這一刻的權力讓你感到興奮，更感到一種前所未有的自信，仿佛這世界的所有重擔都能輕易承擔，\n";
-				cout << "所有的道路都可以掌握在手中，這一世終究活成了自己想要的模樣!\n";
-				cout << "你的結局:皇后\n";
+			cout << "這一刻的權力讓你感到興奮，更感到一種前所未有的自信，仿佛這世界的所有重擔都能輕易承擔，\n";
+			cout << "所有的道路都可以掌握在手中，這一世終究活成了自己想要的模樣!\n";
+			cout << "你的結局:皇后\n";
     			E=true;
-			}else
+			}
+			else
 			{
-        		cout << "你遭到宋貴妃家裡勢力的威脅，你的處境岌岌可危...\n";
-    		}
-    		break;
-		}
+        			cout << "你遭到宋貴妃家裡勢力的威脅，你的處境岌岌可危...\n";
+    			}
+    			break;
+			}
 		case 9:
 			if (safety>=3)
 			{
@@ -497,9 +505,14 @@ void option_B (int run)
 	}
 }
 /*
-* 將所有的選項3 獨立成一個自訂函式，內部以switch 函式管理每一回合的敘述。
-* 參數:int run - 傳入回合數，讓switch 函式輸出相應場景
-*/
+ * 將所有的選項 3 獨立成一個函式，內部使用 switch 控制每回合的敘述。
+ * 
+ * 參數：
+ * - int run - 當前回合數，根據不同回合輸出對應的場景描述並影響角色數值。
+ *
+ *  特殊機制：
+ * - 某些回合（如 7, 9）會根據隨機機率決定不同結果。
+ */
 void option_C (int run)
 {
 	 switch(run)
@@ -620,9 +633,14 @@ void option_C (int run)
 	}
 }
 /*
-* 將所有的選項4 獨立成一個自訂函式，內部以switch 函式管理每一回合的敘述。
-* 參數:int run - 傳入回合數，讓switch 函式輸出相應場景
-*/
+ * 將所有的選項 4 獨立成一個函式，內部使用 switch 控制每回合的敘述。
+ * 
+ * 參數：
+ * - int run - 當前回合數，根據不同回合輸出對應的場景描述並影響角色數值。
+ *
+ *  特殊機制：
+ * - 某些回合（如 4, 5, 6, 8）會根據隨機機率決定不同結果。
+ */
 void option_D (int run)
 {
 	 switch(run)
@@ -762,11 +780,20 @@ void option_D (int run)
 	}
 }
 /*
-* 主函式:以while 迴圈支持整個遊戲，並以布林值判斷是否續進行。
-* 第五回合會有地圖體驗，以布林值F 判斷是否已走到終點。到終點時return true，並將F 改成false，
-  即跳離生成地圖的迴圈，繼續走主劇情。
-* 主劇情接以布林值E 判斷，結局時會return true，根據while 函式，程式結束執行。
-*/
+ * 主函式：使用 while 迴圈支援整個遊戲的流程，並使用布林值判斷是否繼續進行遊戲。
+ *
+ * 主要流程：
+ * 1. 在每回合開始時，根據當前回合數 `run` 觸發不同場景和事件。
+ * 2. 第五回合（`run == 5`）會進行地圖體驗，並依照布林值 `F` 判斷是否已達終點。若到達終點，`return true` 並將 `F` 設為 `false`，跳出地圖生成迴圈，繼續主劇情。
+ * 3. 當主劇情結束後，依照布林值 `E` 判斷是否結束遊戲，若遊戲結束，`return true` 並結束程式執行。
+ *
+ * 輸入：
+ * - `n`（整數）：玩家選擇的選項，根據不同選項執行相應的操作。
+ * - `move`（字符）：用來處理玩家的地圖移動。
+ *
+ * 遊戲結束條件：
+ * - 當 `E == true` 時，遊戲結束。
+ */
 int main() {
     int n, run = 0;
     char move;
